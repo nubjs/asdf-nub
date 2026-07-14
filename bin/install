@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+# asdf hook: install the already-downloaded release into $ASDF_INSTALL_PATH,
+# leaving both `nub` and `nubx` runnable from its bin/. On any failure the
+# partial install dir is removed so asdf never records a broken version.
+set -euo pipefail
+
+plugin_dir=$(dirname "$(dirname "${BASH_SOURCE[0]}")")
+# shellcheck source=../lib/utils.bash
+source "${plugin_dir}/lib/utils.bash"
+
+[ "$ASDF_INSTALL_TYPE" = version ] ||
+  fail "asdf-$TOOL_NAME installs published releases only (got install type: $ASDF_INSTALL_TYPE)"
+
+install_nub() {
+  mkdir -p "$ASDF_INSTALL_PATH/bin"
+  cp "$ASDF_DOWNLOAD_PATH/bin/nub" "$ASDF_INSTALL_PATH/bin/nub"
+  chmod +x "$ASDF_INSTALL_PATH/bin/nub"
+
+  # nubx is the same binary dispatched on argv[0] (cli.rs reads the invoked
+  # name); a relative symlink keeps it valid if the install dir is moved.
+  ln -sf nub "$ASDF_INSTALL_PATH/bin/nubx"
+
+  "$ASDF_INSTALL_PATH/bin/nub" --version >/dev/null ||
+    fail "'nub --version' failed after install"
+
+  echo "$TOOL_NAME $ASDF_INSTALL_VERSION installed."
+}
+
+install_nub || {
+  rm -rf "$ASDF_INSTALL_PATH"
+  fail "install of $TOOL_NAME $ASDF_INSTALL_VERSION failed"
+}

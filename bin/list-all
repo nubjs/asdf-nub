@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# asdf hook: print every installable version, oldest -> newest, space-separated.
+set -euo pipefail
+
+plugin_dir=$(dirname "$(dirname "${BASH_SOURCE[0]}")")
+# shellcheck source=../lib/utils.bash
+source "${plugin_dir}/lib/utils.bash"
+
+list_all_versions | sort_versions | xargs echo

@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# asdf hook: resolve the latest non-prerelease version.
+set -euo pipefail
+
+plugin_dir=$(dirname "$(dirname "${BASH_SOURCE[0]}")")
+# shellcheck source=../lib/utils.bash
+source "${plugin_dir}/lib/utils.bash"
+
+latest_stable_version

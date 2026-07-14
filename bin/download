@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+# asdf hook: download + checksum-verify + extract the release into
+# $ASDF_DOWNLOAD_PATH so bin/install can copy it into place.
+set -euo pipefail
+
+plugin_dir=$(dirname "$(dirname "${BASH_SOURCE[0]}")")
+# shellcheck source=../lib/utils.bash
+source "${plugin_dir}/lib/utils.bash"
+
+mkdir -p "$ASDF_DOWNLOAD_PATH"
+download_release "$ASDF_INSTALL_VERSION" "$ASDF_DOWNLOAD_PATH"

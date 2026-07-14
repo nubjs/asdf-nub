@@ -23,3 +23,7 @@ jobs:
         uses: asdf-vm/actions/plugin-test@v3
         with:
           command: nub --version
+          # asdf's default branch is now the Go rewrite, which ships no runnable
+          # bin/asdf for the action to clone-and-invoke. Pin the last Bash release;
+          # the plugin's bin/ hook contract is unchanged across the rewrite.
+          asdf_branch: v0.15.0

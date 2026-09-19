@@ -16,9 +16,13 @@ install_nub() {
   cp "$ASDF_DOWNLOAD_PATH/bin/nub" "$ASDF_INSTALL_PATH/bin/nub"
   chmod +x "$ASDF_INSTALL_PATH/bin/nub"
 
-  # nubx is the same binary dispatched on argv[0] (cli.rs reads the invoked
-  # name); a relative symlink keeps it valid if the install dir is moved.
-  ln -sf nub "$ASDF_INSTALL_PATH/bin/nubx"
+  # nubx and nubr are the same binary dispatched on argv[0] (cli.rs reads the
+  # invoked name); a relative symlink keeps each valid if the install dir is
+  # moved. nubr, the unified runner, answers from 0.9.3; under an older release
+  # the name runs plain nub.
+  for alias in nubx nubr; do
+    ln -sf nub "$ASDF_INSTALL_PATH/bin/$alias"
+  done
 
   "$ASDF_INSTALL_PATH/bin/nub" --version >/dev/null ||
     fail "'nub --version' failed after install"

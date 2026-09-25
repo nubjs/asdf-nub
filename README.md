@@ -2,7 +2,7 @@
 
 [asdf](https://asdf-vm.com) / [mise](https://mise.jdx.dev) plugin for [nub](https://github.com/nubjs/nub) — the Rust CLI that augments your installed Node.
 
-Installs `nub` (and its `nubx` alias) from the official GitHub releases, with SHA-256 verification of every download.
+Installs `nub` (and its `nubx` and `nubr` aliases) from the official GitHub releases, with SHA-256 verification of every download.
 
 ## Install
 
@@ -36,6 +36,7 @@ asdf install nub latest    # the latest stable release
 
 nub --version
 nubx --version
+nubr --version
 ```
 
 Pin a version per project with `.tool-versions`:

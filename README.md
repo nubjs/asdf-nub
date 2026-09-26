@@ -18,9 +18,9 @@ asdf set nub latest      # or: asdf global nub <version>
 
 ### mise
 
-mise already ships nub in its registry, so no plugin is needed — `mise use nub@latest` provisions nub through mise's built-in npm backend.
+mise already ships nub in its registry, so no plugin is needed — `mise use nub@latest` installs the GitHub release tarball directly (nub 0.9.5 and later; older versions come from the npm package) with `nub`, `nubx` and `nubr` on `PATH`.
 
-This plugin is for asdf. mise users only need it to provision nub from the GitHub release tarballs instead of npm; install it explicitly first:
+This plugin is for asdf. A mise user only needs it on a mise release older than the registry switch; install it explicitly first:
 
 ```sh
 mise plugin install nub https://github.com/nubjs/asdf-nub.git
